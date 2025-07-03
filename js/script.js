@@ -1,3 +1,44 @@
+// Loading Animation Control
+document.addEventListener('DOMContentLoaded', () => {
+    const loadingScreen = document.getElementById('loading-screen');
+    const body = document.body;
+    
+    // Add loading class to body
+    body.classList.add('loading');
+    
+    // Simulate loading time (you can adjust this or remove for real loading)
+    const minLoadingTime = 3000; // Minimum 3 seconds
+    const startTime = Date.now();
+    
+    // Function to hide loading screen
+    function hideLoadingScreen() {
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, minLoadingTime - elapsedTime);
+        
+        setTimeout(() => {
+            loadingScreen.classList.add('fade-out');
+            body.classList.remove('loading');
+            
+            // Remove loading screen from DOM after animation
+            setTimeout(() => {
+                if (loadingScreen && loadingScreen.parentNode) {
+                    loadingScreen.parentNode.removeChild(loadingScreen);
+                }
+            }, 800);
+        }, remainingTime);
+    }
+    
+    // Hide loading screen when all resources are loaded
+    if (document.readyState === 'complete') {
+        hideLoadingScreen();
+    } else {
+        window.addEventListener('load', hideLoadingScreen);
+    }
+    
+    // Fallback: hide loading screen after 5 seconds maximum
+    setTimeout(hideLoadingScreen, 5000);
+});
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -118,15 +159,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Add loading animation
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-});
+// Loading animation is now handled by the dedicated loading screen
 
 // Counter animation for stats
 function animateCounter(element, target, duration = 2000) {
