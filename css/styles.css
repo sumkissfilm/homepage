@@ -541,10 +541,10 @@ body {
 .gallery-title {
     text-align: center;
     margin-bottom: 3rem;
-    color: #ff6b35;
-    font-size: 2.5rem;
-    font-weight: 700;
-    letter-spacing: 2px;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
 }
 
 .gallery-grid {
